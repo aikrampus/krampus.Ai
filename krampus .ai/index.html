@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krampus.AI</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas&display=swap');
+
+        body {
+            font-family: 'Mountains of Christmas', cursive;
+            background: #000 url('krampus.ai meme coin.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+        header {
+            position: relative;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        header h1 {
+            font-size: 6em;
+            margin: 0;
+            color: #ff0000;
+            text-shadow: 4px 4px 10px rgba(255, 0, 0, 0.8);
+        }
+        #countdown-timer {
+            font-size: 4em;
+            color: #ff0000;
+            text-shadow: 0 0 15px green;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px auto;
+        }
+        .krampus-story, #tokenomics, #roadmap, #krampus-ai-story {
+            font-size: 2em;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 30px;
+            margin: 40px 20px;
+            border-radius: 10px;
+            max-width: 1000px;
+        }
+        #tokenomics h2, #roadmap h2 {
+            color: red;
+            text-shadow: 0 0 20px green;
+            text-decoration: underline;
+        }
+        .info-button.krampus {
+            font-size: 3em;
+            padding: 20px 40px;
+            margin: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            background: red;
+            color: white;
+            text-shadow: 2px 2px 5px black;
+        }
+        .krampus-scare {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            z-index: 100;
+        }
+        .snow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .snow span {
+           position: absolute;
+           display: block;
+           background: transparent;
+           color: white;  /* White snowflakes */
+           font-size: calc(10px + 10 * var(--size));  /* Randomize flake size */
+           user-select: none;
+           pointer-events: none;
+           animation: fall linear infinite, drip 3s infinite ease-in-out;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        @keyframes drip {
+            0% { height: 5px; }
+            50% { height: 15px; }
+            100% { height: 5px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="snow" id="snow"></div>
+    <audio id="background-audio" autoplay loop>
+        <source src="angels.mp3" type="audio/mpeg">
+        <source src="carol.mp3" type="audio/mpeg">
+        <source src="silentnight.mp3" type="audio/mpeg">
+        <source src="santaclaus.mp3" type="audio/mpeg">
+        <source src="sugarplum.mp3" type="audio/mpeg">
+        <source src="what_child_is_this.mp3" type="audio/mpeg">
+    </audio>
+    <header>
+        <h1>Krampus.AI</h1>
+    </header>
+    <div class="container">
+        <div id="countdown-timer">Coin launches on Christmas Eve<br><span id="countdown-text"></span></div>
+        <div class="krampus-story">
+            <h2>The Legend of Krampus AI</h2>
+            <p>Long ago, Krampus roamed the winter nights, punishing the naughty. In the digital age, he evolved...</p>
+        </div>
+        <button class="info-button krampus" onclick="triggerScare()">👹 Summon Krampus</button>
+        <img id="krampus-img" class="krampus-scare" src="krampus.webp" alt="Krampus Scare">
+        <section id="tokenomics">
+            <h2>Tokenomics</h2>
+            <p>Total Supply: 1,000,000,000 KMPcoin<br>
+               40% Community and Airdrops<br>
+               30% Liquidity and Staking<br>
+               20% Development and Marketing<br>
+               10% Team </p>
+        </section>
+        <section id="roadmap">
+            <h2>Roadmap</h2>
+            <p>Phase 1: Website Launch & Community Engagement<br>
+               Phase 2: Token Deployment & Airdrop Campaigns<br>
+               Phase 3: Staking and NFT Integration<br>
+               Phase 4: Krampusverse Expansion</p>
+        </section>
+    </div>
+    <script>
+        let audio = document.getElementById("background-audio");
+        let tracks = ["angels.mp3", "carol.mp3", "silentnight.mp3", "santaclaus.mp3", "sugarplum.mp3", "what_child_is_this.mp3"];
+        let currentTrack = 0;
+
+        audio.addEventListener("ended", function() {
+            currentTrack = (currentTrack + 1) % tracks.length;
+            audio.src = tracks[currentTrack];
+            audio.play();
+        });
+    </script>
+<script>
+    function startCountdown() {
+        const countdownText = document.getElementById('countdown-text');
+        const targetDate = new Date('December 24, 2024 00:00:00').getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            countdownText.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }, 1000);
+    }
+    startCountdown();
+</script>
+<script>
+    function triggerScare() {
+        var img = document.getElementById('krampus-img');
+        img.style.display = 'block';
+        setTimeout(() => {
+            img.style.display = 'none';
+        }, 1000);  // 1 second visibility
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const snowContainer = document.getElementById('snow');
+        for (let i = 0; i < 100; i++) {
+            let snowflake = document.createElement('span');
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.top = `${-Math.random() * 100}px`;
+            snowflake.style.width = `${Math.random() * 10 + 5}px`;  // Random size between 5px and 15px
+            snowflake.style.height = snowflake.style.width;
+            snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;  // 5s to 10s fall
+            snowContainer.appendChild(snowflake);
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const snowContainer = document.getElementById('snow');
+        const snowflakeSymbols = ['❄', '❅', '❆'];  // Variety of snowflakes
+        for (let i = 0; i < 100; i++) {
+            let snowflake = document.createElement('span');
+            snowflake.innerHTML = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.top = `${-Math.random() * 100}px`;
+            snowflake.style.fontSize = `${Math.random() * 15 + 10}px`;  // Random sizes between 10px and 25px
+            snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;  // Vary fall speed
+            snowflake.style.opacity = `${Math.random() + 0.3}`;  // Slight transparency
+            snowContainer.appendChild(snowflake);
+        }
+    });
+</script>
+<script>
+    const audio = document.getElementById('background-audio');
+    const tracks = [
+        'angels.mp3',
+        'carol.mp3',
+        'silentnight.mp3',
+        'santaclaus.mp3',
+        'sugarplum.mp3',
+        'what_child_is_this.mp3'
+    ];
+    let currentTrack = 0;
+
+    function playNextTrack() {
+        currentTrack = (currentTrack + 1) % tracks.length;
+        audio.src = tracks[currentTrack];
+        audio.load();
+        audio.play();
+    }
+
+    // Move to the next track when the current one ends
+    audio.addEventListener('ended', playNextTrack);
+
+    // Ensure the first track plays on load
+    window.addEventListener('load', () => {
+        audio.src = tracks[currentTrack];
+        audio.play();
+    });
+</script>
+<script>
+    // Growl and Laugh Sound Effects
+    const growl = new Audio('growl.mp3');
+    const laugh = new Audio('laugh.mp3');
+
+    function triggerScare() {
+        var img = document.getElementById('krampus-img');
+        img.style.display = 'block';
+        growl.play();  // Play growl sound when Krampus appears
+
+        setTimeout(() => {
+            img.style.display = 'none';
+            laugh.play();  // Play laugh sound after Krampus disappears
+        }, 1000);  // 1 second visibility
+    }
+</script>
+<script>
+    const audio = document.getElementById('background-audio');
+    const tracks = [
+        'angels.mp3',
+        'carol.mp3',
+        'silentnight.mp3',
+        'santaclaus.mp3',
+        'sugarplum.mp3',
+        'what_child_is_this.mp3'
+    ];
+    let currentTrack = 0;
+
+    function playNextTrack() {
+        currentTrack = (currentTrack + 1) % tracks.length;  // Loop back to first track
+        audio.src = tracks[currentTrack];
+        audio.load();  // Ensure track reloads
+        audio.play();
+    }
+
+    // Automatically switch to next track when one ends
+    audio.addEventListener('ended', playNextTrack);
+
+    // Ensure the first track plays on load
+    window.addEventListener('load', () => {
+        audio.src = tracks[currentTrack];
+        audio.play();
+    });
+</script>
+
+</body>
+</html>
